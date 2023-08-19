@@ -639,7 +639,7 @@ codeunit 97000 "JSON Helper Test GM"
         JSONPath: Text;
         JSONKey: Text;
         JSONValue: Text;
-        ExpectedErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonValue to System.Int32', Locked = true;
+        ExpectedErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonValue to Microsoft.Dynamics.Nav.Runtime.NavDate', Locked = true;
     begin
         //[SCENARIO] Invoke GetValueByPath value for specified path which is not a JSONObject.
 
@@ -749,7 +749,7 @@ codeunit 97000 "JSON Helper Test GM"
         JSONPath: Text;
         JSONKey: Text;
         JSONValue: Text;
-        ExpectedErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonValue to System.Int32', Locked = true;
+        ExpectedErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonValue to System.Boolean', Locked = true;
     begin
         //[SCENARIO] Invoke GetValueByPath value for specified path which is not a JSONObject.
 

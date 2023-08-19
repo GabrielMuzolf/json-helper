@@ -78,6 +78,7 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Text)
     begin
+        JSONHelperImplGM.GetValueByPath(JSONObject, JSONPath, Value);
     end;
 
     /// <summary>
@@ -89,6 +90,7 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Integer)
     begin
+        JSONHelperImplGM.GetValueByPath(JSONObject, JSONPath, Value);
     end;
 
     /// <summary>
@@ -100,6 +102,7 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Date)
     begin
+        JSONHelperImplGM.GetValueByPath(JSONObject, JSONPath, Value);
     end;
 
     /// <summary>
@@ -111,5 +114,6 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Boolean)
     begin
+        JSONHelperImplGM.GetValueByPath(JSONObject, JSONPath, Value);
     end;
 }

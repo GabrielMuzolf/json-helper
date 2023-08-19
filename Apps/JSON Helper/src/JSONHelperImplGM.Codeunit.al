@@ -53,4 +53,43 @@ codeunit 96001 "JSON Helper Impl. GM"
         Value := JSONToken.AsValue().AsBoolean();
     end;
 
+    [TryFunction]
+    procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Text)
+    var
+        JSONToken: JSONToken;
+    begin
+        Clear(Value);
+        JSONObject.SelectToken(JSONPath, JSONToken);
+        Value := JSONToken.AsValue().AsText();
+    end;
+
+    [TryFunction]
+    procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Integer)
+    var
+        JSONToken: JSONToken;
+    begin
+        Clear(Value);
+        JSONObject.SelectToken(JSONPath, JSONToken);
+        Value := JSONToken.AsValue().AsInteger();
+    end;
+
+    [TryFunction]
+    procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Date)
+    var
+        JSONToken: JSONToken;
+    begin
+        Clear(Value);
+        JSONObject.SelectToken(JSONPath, JSONToken);
+        Value := JSONToken.AsValue().AsDate();
+    end;
+
+    [TryFunction]
+    procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Boolean)
+    var
+        JSONToken: JSONToken;
+    begin
+        Clear(Value);
+        JSONObject.SelectToken(JSONPath, JSONToken);
+        Value := JSONToken.AsValue().AsBoolean();
+    end;
 }
