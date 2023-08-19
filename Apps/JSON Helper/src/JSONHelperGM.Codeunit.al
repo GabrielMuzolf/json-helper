@@ -68,4 +68,48 @@ codeunit 96000 "JSON Helper GM"
     begin
         JSONHelperImplGM.GetValueByKey(JSONObject, JSONKey, Value);
     end;
+
+    /// <summary>
+    /// Retrieves a Text value and sets it to <paramref name="Value"/> if an element exists in <paramref name="JSONObject"/> with the specified <paramref name="JSONPath"/>.
+    /// </summary>
+    /// <param name="JSONObject">The JSON object.</param>
+    /// <param name="JSONPath">The JSON path.</param>
+    /// <param name="Value">The Text variable to store the retrieved value.</param>
+    [TryFunction]
+    procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Text)
+    begin
+    end;
+
+    /// <summary>
+    /// Retrieves an Integer value and sets it to <paramref name="Value"/> if an element exists in <paramref name="JSONObject"/> with the specified <paramref name="JSONPath"/>.
+    /// </summary>
+    /// <param name="JSONObject">The JSON object.</param>
+    /// <param name="JSONPath">The JSON path.</param>
+    /// <param name="Value">The Integer variable to store the retrieved value.</param>
+    [TryFunction]
+    procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Integer)
+    begin
+    end;
+
+    /// <summary>
+    /// Retrieves a Date value and sets it to <paramref name="Value"/> if an element exists in <paramref name="JSONObject"/> with the specified <paramref name="JSONPath"/>.
+    /// </summary>
+    /// <param name="JSONObject">The JSON object.</param>
+    /// <param name="JSONPath">The JSON path.</param>
+    /// <param name="Value">The Date variable to store the retrieved value.</param>
+    [TryFunction]
+    procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Date)
+    begin
+    end;
+
+    /// <summary>
+    /// Retrieves a Boolean value and sets it to <paramref name="Value"/> if an element exists in <paramref name="JSONObject"/> with the specified <paramref name="JSONPath"/>.
+    /// </summary>
+    /// <param name="JSONObject">The JSON object.</param>
+    /// <param name="JSONPath">The JSON path.</param>
+    /// <param name="Value">The Boolean variable to store the retrieved value.</param>
+    [TryFunction]
+    procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Boolean)
+    begin
+    end;
 }
