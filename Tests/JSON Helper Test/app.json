@@ -1,0 +1,39 @@
+{
+  "id": "5956957e-3bbb-47e6-a825-cb244eca0f79",
+  "name": "JSON Helper Test",
+  "publisher": "Gabriel",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [
+    {
+      "id": "e475ccda-8e8a-47d0-bc81-ff3d8812a6fa",
+      "name": "JSON Helper",
+      "publisher": "Gabriel Muzolf",
+      "version": "1.0.0.0"
+    }
+  ],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "22.0.0.0",
+  "idRanges": [
+    {
+      "from": 97000,
+      "to": 97001
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "11.0",
+  "features": [
+    "NoImplicitWith"
+  ]
+}
