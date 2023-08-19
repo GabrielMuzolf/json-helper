@@ -11,4 +11,46 @@ codeunit 96001 "JSON Helper Impl. GM"
 
         exit((JSONAsText = 'null') or (JSONAsText = '[]') or (JSONAsText = '') or (JSONAsText = '{}'));
     end;
+
+    [TryFunction]
+    procedure GetValueByKey(JSONObject: JsonObject; JSONKey: Text; var Value: Text)
+    var
+        JSONToken: JSONToken;
+    begin
+        Clear(Value);
+        JSONObject.Get(JSONKey, JSONToken);
+        Value := JSONToken.AsValue().AsText();
+    end;
+
+
+    [TryFunction]
+    procedure GetValueByKey(JSONObject: JsonObject; JSONKey: Text; var Value: Integer)
+    var
+        JSONToken: JSONToken;
+    begin
+        Clear(Value);
+        JSONObject.Get(JSONKey, JSONToken);
+        Value := JSONToken.AsValue().AsInteger();
+    end;
+
+    [TryFunction]
+    procedure GetValueByKey(JSONObject: JsonObject; JSONKey: Text; var Value: Date)
+    var
+        JSONToken: JSONToken;
+    begin
+        Clear(Value);
+        JSONObject.Get(JSONKey, JSONToken);
+        Value := JSONToken.AsValue().AsDate();
+    end;
+
+    [TryFunction]
+    procedure GetValueByKey(JSONObject: JsonObject; JSONKey: Text; var Value: Boolean)
+    var
+        JSONToken: JSONToken;
+    begin
+        Clear(Value);
+        JSONObject.Get(JSONKey, JSONToken);
+        Value := JSONToken.AsValue().AsBoolean();
+    end;
+
 }

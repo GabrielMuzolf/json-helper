@@ -28,6 +28,7 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetValueByKey(JSONObject: JsonObject; JSONKey: Text; var Value: Text)
     begin
+        JSONHelperImplGM.GetValueByKey(JSONObject, JSONKey, Value);
     end;
 
     /// <summary>
@@ -40,7 +41,7 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetValueByKey(JSONObject: JsonObject; JSONKey: Text; var Value: Integer)
     begin
-
+        JSONHelperImplGM.GetValueByKey(JSONObject, JSONKey, Value);
     end;
 
     /// <summary>
@@ -53,7 +54,7 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetValueByKey(JSONObject: JsonObject; JSONKey: Text; var Value: Date)
     begin
-
+        JSONHelperImplGM.GetValueByKey(JSONObject, JSONKey, Value);
     end;
 
     /// <summary>
@@ -65,6 +66,6 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetValueByKey(JSONObject: JsonObject; JSONKey: Text; var Value: Boolean)
     begin
-
+        JSONHelperImplGM.GetValueByKey(JSONObject, JSONKey, Value);
     end;
 }

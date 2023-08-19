@@ -6,7 +6,7 @@ codeunit 97000 "JSON Helper Test GM"
         Any: Codeunit Any;
         LibraryAssert: Codeunit "Library Assert";
         MissingJSONKeyErr: Label 'There is no property with the ''%1'' key on the JSON object.', Comment = '%1 = JSON key', Locked = true;
-        TokenNotAValueErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Invoketime.NavJsonToken to Microsoft.Dynamics.Nav.Invoketime.NavJsonValue.', Locked = true;
+        TokenNotAValueErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonToken to Microsoft.Dynamics.Nav.Runtime.NavJsonValue.', Locked = true;
 
     [Test]
     procedure IsEmptyNullObject();
@@ -160,7 +160,7 @@ codeunit 97000 "JSON Helper Test GM"
         JSONObject: JsonObject;
         Value: Integer;
         JSONKey: Text;
-        ExpectedErrorMsg: Label 'Unable to convert from Microsoft.Dynamics.Nav.Invoketime.NavJsonValue to System.Int32.', Locked = true;
+        ExpectedErrorMsg: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonValue to System.Int32.', Locked = true;
     begin
         //[SCENARIO] Invoke GetValueByKey for specified token which value is not an integer.
 
@@ -254,7 +254,7 @@ codeunit 97000 "JSON Helper Test GM"
         JSONObject: JsonObject;
         Value: Date;
         JSONKey: Text;
-        ExpectedErrorMsg: Label 'Unable to convert from Microsoft.Dynamics.Nav.Invoketime.NavJsonValue to Microsoft.Dynamics.Nav.Invoketime.NavDate.', Locked = true;
+        ExpectedErrorMsg: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonValue to Microsoft.Dynamics.Nav.Runtime.NavDate.', Locked = true;
     begin
         //[SCENARIO] Invoke GetValueByKey for specifed token which value is not a date.
 
@@ -342,13 +342,13 @@ codeunit 97000 "JSON Helper Test GM"
     end;
 
     [Test]
-    procedure GetBooleanValueByKeyNotADate()
+    procedure GetBooleanValueByKeyNotABoolean()
     var
         JSONHelperGM: Codeunit "JSON Helper GM";
         JSONObject: JsonObject;
         Value: Boolean;
         JSONKey: Text;
-        ExpectedErrorMsg: Label 'Unable to convert from Microsoft.Dynamics.Nav.Invoketime.NavJsonValue to Microsoft.Dynamics.Nav.Invoketime.NavBoolean.', Locked = true;
+        ExpectedErrorMsg: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonValue to System.Boolean.', Locked = true;
     begin
         //[SCENARIO] Invoke GetValueByKey for specifed token which value is not a boolean.
 
