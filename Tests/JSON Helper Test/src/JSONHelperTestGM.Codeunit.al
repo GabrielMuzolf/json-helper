@@ -10,6 +10,7 @@ codeunit 97000 "JSON Helper Test GM"
         TokenNotAValueErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonToken to Microsoft.Dynamics.Nav.Runtime.NavJsonValue.', Locked = true;
         MissingJSONPathErr: Label 'The JSON path ''%1'' does not match any tokens.', Comment = '%1 = JSON path', Locked = true;
         TokenNotAnObjectErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonToken to Microsoft.Dynamics.Nav.Runtime.NavJsonObject.', Locked = true;
+        TokenNotAnArrayErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonToken to Microsoft.Dynamics.Nav.Runtime.NavJsonArray.', Locked = true;
 
     [Test]
     procedure IsEmptyNullObject();
@@ -462,6 +463,73 @@ codeunit 97000 "JSON Helper Test GM"
     end;
 
     [Test]
+    procedure GetArrayByKeyMissingKey()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        RestoredJSONArray: JsonArray;
+        JSONKey: Text;
+    begin
+        //[SCENARIO] Invoke GetArrayByKey method for undefined key.
+
+        //[GIVEN] A JSONKey.
+        JSONKey := Any.UnicodeText(10);
+
+        //[GIVEN] A JSONObject without defined JSONKey.
+        //[WHEN] GetArrayByKey method is invoked.
+        //[THEN] An error occures
+        asserterror JSONHelperGM.GetArrayByKey(JSONObject, JSONKey, RestoredJSONArray);
+        LibraryAssert.ExpectedError(StrSubstNo(MissingJSONKeyErr, JSONKey));
+    end;
+
+    [Test]
+    procedure GetArrayByKeyNotAJSONArray()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        RestoredJSONArray: JsonArray;
+        JSONKey: Text;
+    begin
+        //[SCENARIO] Invoke GetArrayByKey for specifed key which value is not a JSONArray.
+
+        //[GIVEN] A JSONKey.
+        JSONKey := Any.UnicodeText(10);
+
+        //[GIVEN] A JSONObject with defined value for JSONKey, the value is not an array.
+        JSONObject.Add(JSONKey, Any.UnicodeText(10));
+
+        //[WHEN] GetArrayByKey method is invoked.
+        //[THEN] An error occures
+        asserterror JSONHelperGM.GetArrayByKey(JSONObject, JSONKey, RestoredJSONArray);
+        LibraryAssert.ExpectedError(TokenNotAnArrayErr);
+    end;
+
+    [Test]
+    procedure GetArrayByKey()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        InnerJSONArray: JsonArray;
+        RestoredJSONArray: JsonArray;
+        JSONKey: Text;
+    begin
+        //[SCENARIO] Invoke GetArrayByKey for and existing key which value is an array.
+
+        //[GIVEN] A JSONKey.
+        JSONKey := Any.UnicodeText(10);
+
+        //[GIVEN] A JSONObject with defined value for JSONKey, the value is an array.
+        InnerJSONArray.Add(Any.UnicodeText(10));
+        JSONObject.Add(JSONKey, InnerJSONArray);
+
+        //[WHEN] GetArrayByKey method is invoked.
+        JSONHelperGM.GetArrayByKey(JSONObject, JSONKey, RestoredJSONArray);
+
+        //[THEN] Restored JSON Array is equal to previosuly created inner JSON Array.
+        LibraryAssert.AreEqual(Format(InnerJSONArray), Format(RestoredJSONArray), '');
+    end;
+
+    [Test]
     procedure GetTextValueByPathMissingPath()
     var
         JSONHelperGM: Codeunit "JSON Helper GM";
@@ -870,15 +938,6 @@ codeunit 97000 "JSON Helper Test GM"
         LibraryAssert.AreEqual(JSONValue, Value, '');
     end;
 
-
-
-
-
-
-
-
-
-
     [Test]
     procedure GetObjectByPathMissingPath()
     var
@@ -953,4 +1012,80 @@ codeunit 97000 "JSON Helper Test GM"
         //[THEN] Restored JSON Object is equal to previosuly created inner JSON Object.
         LibraryAssert.AreEqual(Format(InnerJSONObject), Format(RestoredJSONObject), '');
     end;
+
+    [Test]
+    procedure GetArrayByPathMissingPath()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        RestoredJSONArray: JsonArray;
+        JSONPath: Text;
+    begin
+        //[SCENARIO] Invoke GetArrayByPath method for undefined path.
+
+        //[GIVEN] A JSONPath.
+        JSONPath := LibraryJSONGM.RandomJsonPath(Any.IntegerInRange(1, 10));
+
+        //[GIVEN] A JSONObject without defined JSONPath.
+        //[WHEN] GetArrayByPath method is invoked.
+        //[THEN] An error occures.
+        asserterror JSONHelperGM.GetArrayByPath(JSONObject, JSONPath, RestoredJSONArray);
+        LibraryAssert.ExpectedError(StrSubstNo(MissingJSONPathErr, JSONPath));
+    end;
+
+    [Test]
+    procedure GetArrayByPathValueNotAJSONArray()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        RestoredJSONArray: JsonArray;
+        JSONPath: Text;
+        JSONKey: Text;
+    begin
+        //[SCENARIO] Invoke GetArrayByPath value for specifed path which token is not a JSONArray.
+
+        //[GIVEN] A JSONKey
+        JSONKey := Any.UnicodeText(10);
+
+        //[GIVEN] A JSONPath.
+        JSONPath := '$.' + JSONKey;
+
+        //[GIVEN] A JSONObject with defined value for JSONPath which is not an array.
+        JSONObject.Add(JSONKey, Any.UnicodeText(10));
+
+        //[WHEN] GetArrayByPath method is invoked.
+        //[THEN] An error occures.
+        asserterror JSONHelperGM.GetArrayByPath(JSONObject, JSONPath, RestoredJSONArray);
+        LibraryAssert.ExpectedError(TokenNotAnArrayErr);
+    end;
+
+    [Test]
+    procedure GetArrayByPath()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        InnerJSONArray: JsonArray;
+        RestoredJSONArray: JsonArray;
+        JSONPath: Text;
+        JSONKey: Text;
+    begin
+        //[SCENARIO] Invoke GetArrayByPath for and existing path which value is an array.
+
+        //[GIVEN] A JSONKey
+        JSONKey := Any.UnicodeText(10);
+
+        //[GIVEN] A JSONPath.
+        JSONPath := '$.' + JSONKey;
+
+        //[GIVEN] A JSONObject with defined value for JSONPath which is an array.
+        InnerJSONArray.Add(Any.UnicodeText(10));
+        JSONObject.Add(JSONKey, InnerJSONArray);
+
+        //[WHEN] GetArrayByPath method is invoked.
+        JSONHelperGM.GetArrayByPath(JSONObject, JSONPath, RestoredJSONArray);
+
+        //[THEN] Restored JSON Array is equal to previosuly created inner JSON Array.
+        LibraryAssert.AreEqual(Format(InnerJSONArray), Format(RestoredJSONArray), '');
+    end;
+
 }
