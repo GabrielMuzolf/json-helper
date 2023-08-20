@@ -92,6 +92,7 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetArrayByKey(JSONObject: JsonObject; JSONKey: Text; var RestoredJSONArray: JsonArray)
     begin
+        JSONHelperImplGM.GetArrayByKey(JSONObject, JSONKey, RestoredJSONArray);
     end;
 
     /// <summary>
@@ -156,13 +157,14 @@ codeunit 96000 "JSON Helper GM"
     end;
 
     /// <summary>
-    /// Retrieves a JSON array from the specified <paramref name="JSONObject"/> using the given <paramref name="JSONKey"/> and assigns it to the <paramref name="RestoredJSONArray"/>.
+    /// Retrieves a JSON array from the specified <paramref name="JSONObject"/> using the given <paramref name="JSONPath"/> and assigns it to the <paramref name="RestoredJSONArray"/>.
     /// </summary>
     /// <param name="JSONObject">The JSON Object.</param>
-    /// <param name="JSONKey">The key in the JSON object.</param>
+    /// <param name="JSONPath">The JSON array path.</param>
     /// <param name="RestoredJSONArray">The variable to store the retrieved JSON array.</param>
     [TryFunction]
-    procedure GetArrayByPath(JSONObject: JsonObject; JSONKey: Text; var RestoredJSONArray: JsonArray)
+    procedure GetArrayByPath(JSONObject: JsonObject; JSONPath: Text; var RestoredJSONArray: JsonArray)
     begin
+        JSONHelperImplGM.GetArrayByPath(JSONObject, JSONPath, RestoredJSONArray);
     end;
 }

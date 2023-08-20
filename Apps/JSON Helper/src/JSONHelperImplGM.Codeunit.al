@@ -64,6 +64,16 @@ codeunit 96001 "JSON Helper Impl. GM"
     end;
 
     [TryFunction]
+    procedure GetArrayByKey(JSONObject: JsonObject; JSONKey: Text; var RestoredJSONArray: JsonArray)
+    var
+        JSONToken: JSONToken;
+    begin
+        Clear(RestoredJSONArray);
+        JSONObject.Get(JSONKey, JSONToken);
+        RestoredJSONArray := JSONToken.AsArray();
+    end;
+
+    [TryFunction]
     procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Text)
     var
         JSONToken: JSONToken;
@@ -111,5 +121,15 @@ codeunit 96001 "JSON Helper Impl. GM"
         Clear(RestoredJSONObject);
         JSONObject.SelectToken(JSONPath, JSONToken);
         RestoredJSONObject := JSONToken.AsObject();
+    end;
+
+    [TryFunction]
+    procedure GetArrayByPath(JSONObject: JsonObject; JSONPath: Text; var RestoredJSONArray: JsonArray)
+    var
+        JSONToken: JSONToken;
+    begin
+        Clear(RestoredJSONArray);
+        JSONObject.SelectToken(JSONPath, JSONToken);
+        RestoredJSONArray := JSONToken.AsArray();
     end;
 }
