@@ -70,6 +70,18 @@ codeunit 96000 "JSON Helper GM"
     end;
 
     /// <summary>
+    /// Retrieves the object from the specified <paramref name="JSONObject"/> using the specified <paramref name="JSONKey"/> and assigns it to the <paramref name="RestoredJSONObject"/>.
+    /// </summary>
+    /// <param name="JSONObject">The JSON Object.</param>
+    /// <param name="JSONKey">The key in the JSON object.</param>
+    /// <param name="RestoredJSONObject">The variable to store the retrieved JSON object.</param>
+    /// <returns>True if the value was successfully retrieved; otherwise, false.</returns>
+    [TryFunction]
+    procedure GetObjectByKey(JSONObject: JsonObject; JSONKey: Text; var RestoredJSONObject: JsonObject)
+    begin
+    end;
+
+    /// <summary>
     /// Retrieves a Text value and sets it to <paramref name="Value"/> if an element exists in <paramref name="JSONObject"/> with the specified <paramref name="JSONPath"/>.
     /// </summary>
     /// <param name="JSONObject">The JSON object.</param>
@@ -115,5 +127,17 @@ codeunit 96000 "JSON Helper GM"
     procedure GetValueByPath(JSONObject: JsonObject; JSONPath: Text; var Value: Boolean)
     begin
         JSONHelperImplGM.GetValueByPath(JSONObject, JSONPath, Value);
+    end;
+
+    /// <summary>
+    /// Retrieves the object from the specified <paramref name="JSONObject"/> using the specified <paramref name="JSONPath"/> and assigns it to the <paramref name="RestoredJSONObject"/>.
+    /// </summary>
+    /// <param name="JSONObject">The JSON Object.</param>
+    /// <param name="JSONPath">The JSON object path.</param>
+    /// <param name="RestoredJSONObject">The variable to store the retrieved JSON object.</param>
+    /// <returns>True if the value was successfully retrieved; otherwise, false.</returns>
+    [TryFunction]
+    procedure GetObjectByPath(JSONObject: JsonObject; JSONPath: Text; var RestoredJSONObject: JsonObject)
+    begin
     end;
 }

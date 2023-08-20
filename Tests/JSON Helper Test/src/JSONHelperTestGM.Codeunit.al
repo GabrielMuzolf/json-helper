@@ -9,6 +9,7 @@ codeunit 97000 "JSON Helper Test GM"
         MissingJSONKeyErr: Label 'There is no property with the ''%1'' key on the JSON object.', Comment = '%1 = JSON key', Locked = true;
         TokenNotAValueErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonToken to Microsoft.Dynamics.Nav.Runtime.NavJsonValue.', Locked = true;
         MissingJSONPathErr: Label 'The JSON path ''%1'' does not match any tokens.', Comment = '%1 = JSON path', Locked = true;
+        TokenNotAnObjectErr: Label 'Unable to convert from Microsoft.Dynamics.Nav.Runtime.NavJsonToken to Microsoft.Dynamics.Nav.Runtime.NavJsonObject.', Locked = true;
 
     [Test]
     procedure IsEmptyNullObject();
@@ -391,6 +392,73 @@ codeunit 97000 "JSON Helper Test GM"
 
         //[THEN] Restored boolean value is equal to previosuly defined boolean value.
         LibraryAssert.AreEqual(JSONValue, Value, '');
+    end;
+
+    [Test]
+    procedure GetObjectByKeyMissingKey()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        RestoredJSONObject: JsonObject;
+        JSONKey: Text;
+    begin
+        //[SCENARIO] Invoke GetObjectByKey method for undefined key.
+
+        //[GIVEN] A JSONKey.
+        JSONKey := Any.UnicodeText(10);
+
+        //[GIVEN] A JSONObject without defined JSONKey.
+        //[WHEN] GetObjectByKey method is invoked.
+        //[THEN] An error occures
+        asserterror JSONHelperGM.GetObjectByKey(JSONObject, JSONKey, RestoredJSONObject);
+        LibraryAssert.ExpectedError(StrSubstNo(MissingJSONKeyErr, JSONKey));
+    end;
+
+    [Test]
+    procedure GetObjectByKeyNotAJSONObject()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        RestoredJSONObject: JsonObject;
+        JSONKey: Text;
+    begin
+        //[SCENARIO] Invoke GetObjectByKey for specifed key which value is not a JSONObject.
+
+        //[GIVEN] A JSONKey.
+        JSONKey := Any.UnicodeText(10);
+
+        //[GIVEN] A JSONObject with defined value for JSONKey, the value is not an object.
+        JSONObject.Add(JSONKey, Any.UnicodeText(10));
+
+        //[WHEN] GetObjectByKey method is invoked.
+        //[THEN] An error occures
+        asserterror JSONHelperGM.GetObjectByKey(JSONObject, JSONKey, RestoredJSONObject);
+        LibraryAssert.ExpectedError(TokenNotAnObjectErr);
+    end;
+
+    [Test]
+    procedure GetObjectByKey()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        InnerJSONObject: JsonObject;
+        RestoredJSONObject: JsonObject;
+        JSONKey: Text;
+    begin
+        //[SCENARIO] Invoke GetObjectByKey for and existing key which value is an object.
+
+        //[GIVEN] A JSONKey.
+        JSONKey := Any.UnicodeText(10);
+
+        //[GIVEN] A JSONObject with defined value for JSONKey, the value is an object.
+        InnerJSONObject.Add(JSONKey, Any.UnicodeText(10));
+        JSONObject.Add(JSONKey, InnerJSONObject);
+
+        //[WHEN] GetObjectByKey method is invoked.
+        JSONHelperGM.GetObjectByKey(JSONObject, JSONKey, RestoredJSONObject);
+
+        //[THEN] Restored JSON Object is equal to previosuly created inner JSON Object.
+        LibraryAssert.AreEqual(Format(InnerJSONObject), Format(RestoredJSONObject), '');
     end;
 
     [Test]
@@ -800,5 +868,89 @@ codeunit 97000 "JSON Helper Test GM"
 
         //[THEN] Restored boolean value is equal to previosuly defined boolean value.
         LibraryAssert.AreEqual(JSONValue, Value, '');
+    end;
+
+
+
+
+
+
+
+
+
+
+    [Test]
+    procedure GetObjectByPathMissingPath()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        RestoredJSONObject: JsonObject;
+        JSONPath: Text;
+    begin
+        //[SCENARIO] Invoke GetObjectByPath method for undefined path.
+
+        //[GIVEN] A JSONPath.
+        JSONPath := LibraryJSONGM.RandomJsonPath(Any.IntegerInRange(1, 10));
+
+        //[GIVEN] A JSONObject without defined JSONPath.
+        //[WHEN] GetObjectByPath method is invoked.
+        //[THEN] An error occures.
+        asserterror JSONHelperGM.GetObjectByPath(JSONObject, JSONPath, RestoredJSONObject);
+        LibraryAssert.ExpectedError(StrSubstNo(MissingJSONPathErr, JSONPath));
+    end;
+
+    [Test]
+    procedure GetObjectByPathValueNotAJSONObject()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        RestoredJSONObject: JsonObject;
+        JSONPath: Text;
+        JSONKey: Text;
+    begin
+        //[SCENARIO] Invoke GetObjectByPath value for specifed path which token is not a JSONObject.
+
+        //[GIVEN] A JSONKey
+        JSONKey := Any.UnicodeText(10);
+
+        //[GIVEN] A JSONPath.
+        JSONPath := '$.' + JSONKey;
+
+        //[GIVEN] A JSONObject with defined value for JSONPath which is not an object.
+        JSONObject.Add(JSONKey, Any.UnicodeText(10));
+
+        //[WHEN] GetObjectByPath method is invoked.
+        //[THEN] An error occures.
+        asserterror JSONHelperGM.GetObjectByPath(JSONObject, JSONPath, RestoredJSONObject);
+        LibraryAssert.ExpectedError(TokenNotAnObjectErr);
+    end;
+
+    [Test]
+    procedure GetObjectByPath()
+    var
+        JSONHelperGM: Codeunit "JSON Helper GM";
+        JSONObject: JsonObject;
+        InnerJSONObject: JsonObject;
+        RestoredJSONObject: JsonObject;
+        JSONPath: Text;
+        JSONKey: Text;
+    begin
+        //[SCENARIO] Invoke GetObjectByKey for and existing path which value is an object.
+
+        //[GIVEN] A JSONKey
+        JSONKey := Any.UnicodeText(10);
+
+        //[GIVEN] A JSONPath.
+        JSONPath := '$.' + JSONKey;
+
+        //[GIVEN] A JSONObject with defined value for JSONPath which is an object.
+        InnerJSONObject.Add(Any.UnicodeText(10), Any.UnicodeText(10));
+        JSONObject.Add(JSONKey, InnerJSONObject);
+
+        //[WHEN] GetObjectByPath method is invoked.
+        JSONHelperGM.GetObjectByPath(JSONObject, JSONPath, RestoredJSONObject);
+
+        //[THEN] Restored JSON Object is equal to previosuly created inner JSON Object.
+        LibraryAssert.AreEqual(Format(InnerJSONObject), Format(RestoredJSONObject), '');
     end;
 }
