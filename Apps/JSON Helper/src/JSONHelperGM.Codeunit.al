@@ -79,6 +79,7 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetObjectByKey(JSONObject: JsonObject; JSONKey: Text; var RestoredJSONObject: JsonObject)
     begin
+        JSONHelperImplGM.GetObjectByKey(JSONObject, JSONKey, RestoredJSONObject);
     end;
 
     /// <summary>
@@ -139,5 +140,6 @@ codeunit 96000 "JSON Helper GM"
     [TryFunction]
     procedure GetObjectByPath(JSONObject: JsonObject; JSONPath: Text; var RestoredJSONObject: JsonObject)
     begin
+        JSONHelperImplGM.GetObjectByPath(JSONObject, JSONPath, RestoredJSONObject);
     end;
 }
