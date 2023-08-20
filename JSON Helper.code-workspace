@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "Apps/JSON Helper"
+		},
+		{
+			"path": "Tests/JSON Helper Test"
+		}
+	],
+	"settings": {}
+}

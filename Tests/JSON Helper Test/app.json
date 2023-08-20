@@ -1,0 +1,51 @@
+{
+  "id": "5956957e-3bbb-47e6-a825-cb244eca0f79",
+  "name": "JSON Helper Test",
+  "publisher": "Gabriel",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [
+    {
+      "id": "e475ccda-8e8a-47d0-bc81-ff3d8812a6fa",
+      "name": "JSON Helper",
+      "publisher": "Gabriel Muzolf",
+      "version": "1.0.0.0"
+    },
+    {
+      "id":  "dd0be2ea-f733-4d65-bb34-a28f4624fb14",
+      "publisher":  "Microsoft",
+      "name":  "Library Assert",
+      "version":  "22.0.0.0"
+    },
+    {
+        "id":  "e7320ebb-08b3-4406-b1ec-b4927d3e280b",
+        "publisher":  "Microsoft",
+        "name":  "Any",
+        "version":  "22.0.0.0"
+    }
+  ],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "22.0.0.0",
+  "idRanges": [
+    {
+      "from": 97000,
+      "to": 97001
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "11.0",
+  "features": [
+    "NoImplicitWith"
+  ]
+}
